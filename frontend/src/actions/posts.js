@@ -37,6 +37,7 @@ const deletePostSuccess = post => ({
 
 const editPostSuccess = post => ({
     type: actionType.MODIFY_POST,
+    post,
     alert: {
         message: 'Successfully modified the post!',
         type: 'alert-success'

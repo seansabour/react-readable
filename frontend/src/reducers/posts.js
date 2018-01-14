@@ -25,7 +25,8 @@ const postReducer = (state = initialState, action) => {
         case actionType.MODIFY_POST:
             return {
                 ...state,
-                alert: action.alert
+                alert: action.alert,
+                byID: { ...state.byID, [action.post.id]: action.post }
             };
         case actionType.REQUEST_POSTS:
             return { ...state, isFetching: action.isFetching };
@@ -47,21 +48,28 @@ const postReducer = (state = initialState, action) => {
         case actionType.DELETE_POST:
             const activePosts = Object.assign({}, state.byID);
             delete activePosts[action.post.id];
+
             return {
                 ...state,
                 byID: activePosts,
-                alert: action.alert
+                alert: action.alert,
+                sortedIds: state.sortedIds.filter(
+                    sorted => sorted !== action.post.id
+                )
             };
         case actionType.HIDE_NOTIFICATION:
             return { ...state, alert: {} };
 
         case actionType.VOTE_POST:
+            const newByID = {
+                ...state.byID,
+                [action.post.id]: action.post
+            };
+            const sortedIds = transformPostToArray(newByID);
             return {
                 ...state,
-                byID: {
-                    ...state.byID,
-                    [action.post.id]: action.post
-                }
+                byID: newByID,
+                sortedIds: sort(sortedIds, state.sort_by)
             };
         default:
             return state;
