@@ -13,7 +13,7 @@ import Notification from './Notification';
 class NewsFeed extends React.Component {
     componentDidMount() {
         if (this.props.posts.length === 0) {
-            this.props.getPosts();
+            this.props.fetchPosts();
         }
     }
 
@@ -49,7 +49,7 @@ class NewsFeed extends React.Component {
     };
 
     handleSelection = name => {
-        this.props.sortPostsBy(name);
+        this.props.sortPosts(name);
     };
 
     render() {
@@ -100,21 +100,13 @@ class NewsFeed extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    const { posts } = state;
-    return {
-        posts: posts.byID,
-        isFetching: posts.isFetching,
-        alert: posts.alert,
-        sortedIds: posts.sortedIds
-    };
-};
-
-const mapDispatchToProps = dispatch => ({
-    getPosts: posts => dispatch(fetchPosts(posts)),
-    sortPostsBy: name => dispatch(sortPosts(name))
+const mapStateToProps = ({ posts }) => ({
+    posts: posts.byID,
+    isFetching: posts.isFetching,
+    alert: posts.alert,
+    sortedIds: posts.sortedIds
 });
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(NewsFeed)
+    connect(mapStateToProps, { fetchPosts, sortPosts })(NewsFeed)
 );

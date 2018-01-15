@@ -83,13 +83,10 @@ class Comment extends React.Component {
         );
     }
 }
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({
-    voteComment: (commentID, vote) => dispatch(voteComment(commentID, vote)),
-    deleteComment: commentID => dispatch(deleteComment(commentID))
-});
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(Comment)
+    connect(null, {
+        voteComment,
+        deleteComment
+    })(Comment)
 );

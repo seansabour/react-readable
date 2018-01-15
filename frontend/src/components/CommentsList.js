@@ -5,7 +5,7 @@ import Comment from './Comment';
 
 class CommentsList extends React.Component {
     componentDidMount() {
-        this.props.getComments(this.props.postID);
+        this.props.fetchComments(this.props.postID);
     }
     render() {
         let { comments } = this.props;
@@ -28,11 +28,8 @@ class CommentsList extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    comments: state.comments.comments
+const mapStateToProps = ({ comments }) => ({
+    comments: comments.comments
 });
 
-const mapDispatchToProps = dispatch => ({
-    getComments: id => dispatch(fetchComments(id))
-});
-export default connect(mapStateToProps, mapDispatchToProps)(CommentsList);
+export default connect(mapStateToProps, { fetchComments })(CommentsList);

@@ -48,11 +48,4 @@ class NewPost extends React.Component {
         );
     }
 }
-const mapStateToProps = (state, ownProps) => {
-    return {};
-};
-const mapDispatchToProps = dispatch => ({
-    addPost: post => dispatch(addPost(post))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost);
+export default connect(null, { addPost })(NewPost);

@@ -8,7 +8,7 @@ import { fetchTopics } from '../actions/topics';
 class TopicList extends Component {
     componentDidMount() {
         if (this.props.topics.length <= 1) {
-            this.props.getTopics();
+            this.props.fetchTopics();
         }
     }
 
@@ -27,14 +27,8 @@ class TopicList extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    topics: state.topics.names
+const mapStateToProps = ({ topics }) => ({
+    topics: topics.names
 });
 
-const mapDispatchToProps = dispatch => ({
-    getTopics: topics => dispatch(fetchTopics(topics))
-});
-
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(TopicList)
-);
+export default withRouter(connect(mapStateToProps, { fetchTopics })(TopicList));

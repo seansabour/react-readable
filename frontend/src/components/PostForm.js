@@ -7,7 +7,7 @@ class PostForm extends React.Component {
 
     componentDidMount() {
         const { post } = this.props;
-        this.props.getTopics();
+        this.props.fetchTopics();
 
         this.setState({ ...post });
     }
@@ -93,12 +93,8 @@ class PostForm extends React.Component {
         );
     }
 }
-const mapStateToProps = state => ({
-    topics: state.topics.names
+const mapStateToProps = ({ topics }) => ({
+    topics: topics.names
 });
 
-const mapDispatchToProps = dispatch => ({
-    getTopics: topics => dispatch(fetchTopics(topics))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
+export default connect(mapStateToProps, { fetchTopics })(PostForm);

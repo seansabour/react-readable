@@ -85,14 +85,4 @@ class Post extends React.Component {
         );
     }
 }
-
-const mapStateToProps = (state, ownProps) => {
-    return {};
-};
-
-const mapDispatchToProps = dispatch => ({
-    deletePost: id => dispatch(deletePost(id)),
-    votePost: (id, vote) => dispatch(votePost(id, vote))
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post));
+export default withRouter(connect(null, { deletePost, votePost })(Post));

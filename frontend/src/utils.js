@@ -1,16 +1,9 @@
 import fetch from 'cross-fetch';
-
-const base_url = 'http://localhost:3001';
-const options = {
-    headers: {
-        Authorization: 'whatever',
-        'Content-Type': 'application/json'
-    }
-};
+import * as api from './helpers/config';
 
 // Category related API
 export const getCategories = async () => {
-    return fetch(`${base_url}/categories`, options)
+    return fetch(`${api.base_url}/categories`, api.options)
         .then(res => res.json())
         .then(json => json)
         .catch(err => err);
@@ -18,22 +11,22 @@ export const getCategories = async () => {
 
 // Posts related API
 export const getPost = async id => {
-    return fetch(`${base_url}/posts/${id}`, options)
+    return fetch(`${api.base_url}/posts/${id}`, api.options)
         .then(res => res.json())
         .then(json => json)
         .catch(err => err);
 };
 
 export const getPosts = async () => {
-    return fetch(`${base_url}/posts`, options)
+    return fetch(`${api.base_url}/posts`, api.options)
         .then(res => res.json())
         .then(json => json)
         .catch(err => err);
 };
 
 export const addPost = async post => {
-    return fetch(`${base_url}/posts/`, {
-        ...options,
+    return fetch(`${api.base_url}/posts/`, {
+        ...api.options,
         method: 'POST',
         body: JSON.stringify(post)
     })
@@ -43,8 +36,8 @@ export const addPost = async post => {
 };
 
 export const votePost = async (postID, vote) => {
-    return fetch(`${base_url}/posts/${postID}`, {
-        ...options,
+    return fetch(`${api.base_url}/posts/${postID}`, {
+        ...api.options,
         method: 'POST',
         body: JSON.stringify({ option: vote })
     })
@@ -54,8 +47,8 @@ export const votePost = async (postID, vote) => {
 };
 
 export const editPost = async post => {
-    return fetch(`${base_url}/posts/${post.id}`, {
-        ...options,
+    return fetch(`${api.base_url}/posts/${post.id}`, {
+        ...api.options,
         method: 'PUT',
         body: JSON.stringify({
             title: post.title,
@@ -68,8 +61,8 @@ export const editPost = async post => {
 };
 
 export const deletePost = async id => {
-    return fetch(`${base_url}/posts/${id}`, {
-        ...options,
+    return fetch(`${api.base_url}/posts/${id}`, {
+        ...api.options,
         method: 'DELETE'
     })
         .then(res => res.json())
@@ -79,22 +72,22 @@ export const deletePost = async id => {
 
 // Comment related API
 export const addComment = async comment => {
-    return fetch(`${base_url}/comments`, {
-        ...options,
+    return fetch(`${api.base_url}/comments`, {
+        ...api.options,
         method: 'POST',
         body: JSON.stringify(comment)
     }).then(res => res.json());
 };
 export const getCommentsForPost = async id => {
-    return fetch(`${base_url}/posts/${id}/comments`, options)
+    return fetch(`${api.base_url}/posts/${id}/comments`, api.options)
         .then(res => res.json())
         .then(json => json)
         .catch(err => err);
 };
 
 export const voteComment = async (commentID, vote) => {
-    return fetch(`${base_url}/comments/${commentID}`, {
-        ...options,
+    return fetch(`${api.base_url}/comments/${commentID}`, {
+        ...api.options,
         method: 'POST',
         body: JSON.stringify({ option: vote })
     })
@@ -104,8 +97,8 @@ export const voteComment = async (commentID, vote) => {
 };
 
 export const deleteComment = async commentID => {
-    return fetch(`${base_url}/comments/${commentID}`, {
-        ...options,
+    return fetch(`${api.base_url}/comments/${commentID}`, {
+        ...api.options,
         method: 'DELETE'
     })
         .then(res => res.json())
@@ -114,8 +107,8 @@ export const deleteComment = async commentID => {
 };
 
 export const updateComment = async (commentID, body) => {
-    return fetch(`${base_url}/comments/${commentID}`, {
-        ...options,
+    return fetch(`${api.base_url}/comments/${commentID}`, {
+        ...api.options,
         method: 'PUT',
         body: JSON.stringify({ body, timestamp: Date.now() })
     })

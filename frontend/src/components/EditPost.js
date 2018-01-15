@@ -10,7 +10,7 @@ class EditPost extends React.Component {
     // If data hasn't been fetched yet, go ahead and fetch all the data.
     componentDidMount() {
         if (Array.isArray(this.props.posts.byID)) {
-            this.props.getPosts();
+            this.props.fetchPosts();
         }
     }
 
@@ -54,14 +54,6 @@ class EditPost extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    const { posts } = state;
-    return { posts };
-};
+const mapStateToProps = ({ posts }) => ({ posts });
 
-const mapDispatchToProps = dispatch => ({
-    getPosts: () => dispatch(fetchPosts()),
-    editPost: post => dispatch(editPost(post))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditPost);
+export default connect(mapStateToProps, { fetchPosts, editPost })(EditPost);

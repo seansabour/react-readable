@@ -59,8 +59,5 @@ class EditableComment extends React.Component {
         );
     }
 }
-const mapStateToProps = state => ({});
-const mapDispatchToProps = dispatch => ({
-    updateComment: (commentID, body) => dispatch(updateComment(commentID, body))
-});
-export default connect(mapStateToProps, mapDispatchToProps)(EditableComment);
+
+export default connect(null, { updateComment })(EditableComment);

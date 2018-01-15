@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import BackButton from './BackButton';
 import { addComment } from '../actions/comments';
-import { fetchPosts, votePost, deletePost } from '../actions/posts';
+import * as actions from '../actions/posts';
 import PageNotFound from './NotFound';
 import Loading from './Loading';
 import CommentBox from './CommentBox';
@@ -14,7 +14,7 @@ import Options from './Options';
 class DetailedPost extends React.Component {
     componentDidMount() {
         if (Array.isArray(this.props.post.byID)) {
-            this.props.getPosts();
+            this.props.fetchPosts();
         }
     }
 
@@ -138,19 +138,11 @@ class DetailedPost extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
-    const { comments, posts } = state;
-    return {
-        comments: comments.comments,
-        post: posts
-    };
-};
-
-const mapDispatchToProps = dispatch => ({
-    addComment: comment => dispatch(addComment(comment)),
-    getPosts: () => dispatch(fetchPosts()),
-    votePost: (id, vote) => dispatch(votePost(id, vote)),
-    deletePost: id => dispatch(deletePost(id))
+const mapStateToProps = ({ comments, posts }) => ({
+    comments: comments.comments,
+    post: posts
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailedPost);
+export default connect(mapStateToProps, { ...actions, addComment })(
+    DetailedPost
+);

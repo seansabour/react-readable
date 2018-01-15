@@ -18,14 +18,8 @@ class Notification extends React.Component {
         return <div />;
     }
 }
-const mapStateToProps = state => {
-    const { posts } = state;
-    return {
-        alert: posts.alert
-    };
-};
-
-const mapDispatchToProps = dispatch => ({
-    hideNotification: () => dispatch(hideNotification())
+const mapStateToProps = ({ posts }) => ({
+    alert: posts.alert
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Notification);
+
+export default connect(mapStateToProps, { hideNotification })(Notification);
