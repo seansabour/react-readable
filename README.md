@@ -10,7 +10,6 @@ This project demonstrates the usage of React and Redux to build a CMS applicatio
    - `npm install`
    - `npm start`
  
- ## Demo
  
  
  ## Contributing
